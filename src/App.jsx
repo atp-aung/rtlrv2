@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Detail from './Detail'
 import Form from './Form'
+import UpdForm from './UpdForm'
 
 function App() {
   const [atcAry, setAtcAry] = useState([])
   const [respDtl, setRespDtl] = useState("")
+  const [updid, setUpdid] = useState(0)
 
   useEffect(() => {
     axios
@@ -51,9 +53,6 @@ function App() {
   // }
 
   const add = (title, body, category_id) => {
-    // const tt = title
-    // const bd = body
-    // const cid = category_id
 
     const postData = {
       title: title,
@@ -77,13 +76,16 @@ function App() {
 
   return (
     <>
+      <h3>Update Form</h3>
+      <UpdForm updid={updid} />
+
       <h3>Articles</h3>
       <ul>
         {atcAry.map(atc =>
           <li key={atc.id} > <b>Article Title: </b>{atc.title} <b>Category: </b> {atc.category ? atc.category.name : ""}
             <button onClick={() => dtlShow(atc.id)}>detail</button>
             <button onClick={() => delOp(atc.id)}>delete</button>
-            <button>update</button>
+            <button onClick={() => setUpdid(atc.id)}> update</button>
           </li>
         )}
       </ul >
