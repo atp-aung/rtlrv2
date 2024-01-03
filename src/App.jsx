@@ -27,15 +27,38 @@ function App() {
         })
   }
 
+  const delOp = async (id) => {
+    await
+      axios
+        .delete(`http://localhost:8000/api/articles/${id}`)
+        .then(response => {
+          //console.log("resp is ----" + JSON.stringify(response.data.detail))
+          setAtcAry(response.data)
+          //console.log(respDtl)
+        })
+  }
+
+  // const updOp = (id) => {
+  //   const updid = id
+  //   axios
+  //     .put(`http://localhost:8000/api/categories/${updid}`, { name: newName })
+  //     .then(response => {
+  //       console.log("succ updated")
+  //       console.log(response)
+  //       setCtgAry(response.data)
+  //     })
+  //   setNewName("")
+  // }
+
   const add = (title, body, category_id) => {
-    const tt = title
-    const bd = body
-    const cid = category_id
+    // const tt = title
+    // const bd = body
+    // const cid = category_id
 
     const postData = {
-      title: tt,
-      body: bd,
-      category_id: cid
+      title: title,
+      body: body,
+      category_id: category_id
     };
 
     axios
@@ -59,6 +82,8 @@ function App() {
         {atcAry.map(atc =>
           <li key={atc.id} > <b>Article Title: </b>{atc.title} <b>Category: </b> {atc.category ? atc.category.name : ""}
             <button onClick={() => dtlShow(atc.id)}>detail</button>
+            <button onClick={() => delOp(atc.id)}>delete</button>
+            <button>update</button>
           </li>
         )}
       </ul >

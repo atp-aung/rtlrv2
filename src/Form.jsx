@@ -14,6 +14,7 @@ const Form = (props) => {
         bodyref.current.value,
         cateref.current.value
       );
+
       titleref.current.value = ""
       bodyref.current.value = ""
       cateref.current.value = ""
