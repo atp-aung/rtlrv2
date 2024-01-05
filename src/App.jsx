@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import Detail from './Detail'
 import Form from './Form'
 import UpdForm from './UpdForm'
 
+const UpdFormContext = createContext();
+
 function App() {
   const [atcAry, setAtcAry] = useState([])
   const [respDtl, setRespDtl] = useState("")
   const [updid, setUpdid] = useState(0)
+  const [art, setArt] = useState("")
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/articles`)
       .then(response => {
-        console.log(response.data.articles)
+        //console.log(response.data.articles)
         setAtcAry(response.data.articles)
       })
   }, [])
@@ -40,20 +44,14 @@ function App() {
         })
   }
 
-  // const updOp = (id) => {
-  //   const updid = id
-  //   axios
-  //     .put(`http://localhost:8000/api/categories/${updid}`, { name: newName })
-  //     .then(response => {
-  //       console.log("succ updated")
-  //       console.log(response)
-  //       setCtgAry(response.data)
-  //     })
-  //   setNewName("")
-  // }
+  const updPre = (id, title, body, category_id) => {
+    setShow(!show)
+    setUpdid(id)
+    setArt({ title: title, body: body, category_id: category_id })
+    //console.log(art)
+  }
 
   const add = (title, body, category_id) => {
-
     const postData = {
       title: title,
       body: body,
@@ -76,16 +74,22 @@ function App() {
 
   return (
     <>
-      <h3>Update Form</h3>
-      <UpdForm updid={updid} />
+      {show &&
+        <div>
+          <h3>Update Form</h3>
+          <UpdFormContext.Provider value={{ atcArySt: [atcAry, setAtcAry], updidSt: [updid, setUpdid], artSt: [art, setArt], showSt: [show, setShow] }}>
+            <UpdForm ctx={UpdFormContext} />
+          </UpdFormContext.Provider >
+        </div>
+      }
 
       <h3>Articles</h3>
       <ul>
         {atcAry.map(atc =>
-          <li key={atc.id} > <b>Article Title: </b>{atc.title} <b>Category: </b> {atc.category ? atc.category.name : ""}
+          <li key={atc.id} > <b>Article Title: </b>{atc.title ? atc.title : ""} <b>Category: </b> {atc.category ? atc.category.name : ""}
             <button onClick={() => dtlShow(atc.id)}>detail</button>
             <button onClick={() => delOp(atc.id)}>delete</button>
-            <button onClick={() => setUpdid(atc.id)}> update</button>
+            <button onClick={() => updPre(atc.id, atc.title, atc.body, atc.category_id)}>edit</button>
           </li>
         )}
       </ul >

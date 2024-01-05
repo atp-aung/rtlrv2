@@ -1,35 +1,72 @@
-import { useRef } from "react"
+import axios from "axios";
+import { useContext } from "react"
 
-const UpdForm = (props) => {
-  // const titleref = useRef();
-  // const bodyref = useRef();
-  // const cateref = useRef();
+const UpdForm = ({ ctx }) => {
+  const { atcArySt, updidSt, artSt, showSt } = useContext(ctx);
+  const [atcAry, setAtcAry] = atcArySt;
+  const [updid, setUpdid] = updidSt;
+  const [art, setArt] = artSt
+  const [show, setShow] = showSt;
 
-  // return (
-  //   <form onSubmit={e => {
-  //     e.preventDefault();
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setArt(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  //     props.add(
-  //       titleref.current.value,
-  //       bodyref.current.value,
-  //       cateref.current.value
-  //     );
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  //     titleref.current.value = ""
-  //     bodyref.current.value = ""
-  //     cateref.current.value = ""
-  //   }}>
+    await
+      axios
+        .put(`http://localhost:8000/api/articles/${updid}`, { title: art.title, body: art.body, category_id: art.category_id })
+        .then(response => {
+          console.log(response)
+          console.log(response.data)
+          console.log("succ updated")
+          setAtcAry(response.data.updated)
+        })
+        .catch(error => {
+          console.error('Error:', error.response.data);
+        });
+    setShow(!show)
+  };
 
-  //     <input type="text" ref={titleref} /> <br />
-  //     <input type="text" ref={bodyref} /> <br />
-  //     <input type="text" ref={cateref} /> <br />
-  //     <button type="submit">Add</button>
-  //   </form>
-  // );
   return (
-    <>
-      <p>---: {props.updid}</p>
-    </>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Title:
+        <input
+          type="text"
+          name="title"
+          value={art.title || ""}
+          onChange={handleInputChange}
+        />
+      </label>
+      <br />
+      <label>
+        Body:
+        <textarea
+          name="body"
+          value={art.body || ""}
+          onChange={handleInputChange}
+        />
+      </label>
+      <br />
+      <label>
+        Category ID:
+        <input
+          type="text"
+          name="category_id"
+          value={art.category_id || ""}
+          onChange={handleInputChange}
+        />
+      </label>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
   )
 }
 
