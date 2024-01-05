@@ -20,9 +20,9 @@ const Form = (props) => {
       cateref.current.value = ""
     }}>
 
-      <input type="text" ref={titleref} /> <br />
-      <input type="text" ref={bodyref} /> <br />
-      <input type="text" ref={cateref} /> <br />
+      Title: <input type="text" ref={titleref} /> <br />
+      Body: <input type="text" ref={bodyref} /> <br />
+      Category id: <input type="text" ref={cateref} /> <br />
       <button type="submit">Add</button>
     </form>
   );
