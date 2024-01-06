@@ -8,6 +8,7 @@ const Detail = (props) => {
       <p>title: {props.title}</p>
       <p>body: {props.body}</p>
       <p>cat: {props.cat}</p>
+      <button onClick={props.btnclr} >clear</button>
     </>
   )
 }

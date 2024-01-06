@@ -33,6 +33,8 @@ function App() {
         })
   }
 
+  const btnclr = () => { setRespDtl("") }
+
   const delOp = async (id) => {
     await
       axios
@@ -94,7 +96,7 @@ function App() {
       </ul >
 
       <h3>Detail</h3>
-      <Detail id={respDtl.id} title={respDtl.title} body={respDtl.body} cat={respDtl.category ? respDtl.category.name : ""} />
+      <Detail id={respDtl.id} title={respDtl.title} body={respDtl.body} cat={respDtl.category ? respDtl.category.name : ""} btnclr={btnclr} />
       <h3>Add new article</h3>
       <Form add={add} />
     </>
