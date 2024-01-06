@@ -11,7 +11,7 @@ function App() {
   const [respDtl, setRespDtl] = useState("")
   const [updid, setUpdid] = useState(0)
   const [art, setArt] = useState("")
-  const [show, setShow] = useState(false)
+  //const [show, setShow] = useState(false)
 
   useEffect(() => {
     axios
@@ -47,7 +47,7 @@ function App() {
   }
 
   const updPre = (id, title, body, category_id) => {
-    setShow(!show)
+    //setShow(!show)
     setUpdid(id)
     setArt({ title: title, body: body, category_id: category_id })
     //console.log(art)
@@ -75,14 +75,21 @@ function App() {
 
   return (
     <>
-      {show &&
+      {/* {show &&
         <div>
           <h3>Update Form</h3>
           <UpdFormContext.Provider value={{ atcArySt: [atcAry, setAtcAry], updidSt: [updid, setUpdid], artSt: [art, setArt], showSt: [show, setShow] }}>
             <UpdForm ctx={UpdFormContext} />
           </UpdFormContext.Provider >
         </div>
-      }
+      } */}
+
+      <div>
+        <h3>Update Form</h3>
+        <UpdFormContext.Provider value={{ atcArySt: [atcAry, setAtcAry], updidSt: [updid, setUpdid], artSt: [art, setArt] }}>
+          <UpdForm ctx={UpdFormContext} />
+        </UpdFormContext.Provider >
+      </div>
 
       <h3>Articles</h3>
       <ul>

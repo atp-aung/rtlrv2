@@ -6,7 +6,7 @@ const UpdForm = ({ ctx }) => {
   const [atcAry, setAtcAry] = atcArySt;
   const [updid, setUpdid] = updidSt;
   const [art, setArt] = artSt
-  const [show, setShow] = showSt;
+  //const [show, setShow] = showSt;
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -31,7 +31,7 @@ const UpdForm = ({ ctx }) => {
         .catch(error => {
           console.error('Error:', error.response.data);
         });
-    setShow(!show)
+    //setShow(!show)
   };
 
   return (
