@@ -30,7 +30,8 @@ const Form = (props) => {
 
       titleref.current.value = ""
       bodyref.current.value = ""
-      cateref.current.value = ""
+      //cateref.current.value = ""
+      setcat("")
     }}>
 
       Title: <input type="text" ref={titleref} /> <br />
@@ -42,7 +43,7 @@ const Form = (props) => {
         {cats.map(c => (
           <option key={c.id} value={c.id}>{c.name}</option>
         ))}
-      </select>
+      </select><br />
       <button type="submit">Add</button>
     </form>
   );
