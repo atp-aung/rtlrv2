@@ -1,18 +1,22 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useContext } from "react"
 import axios from "axios"
 
-const Form = (props) => {
-  const [cat, setcat] = useState("")
-  const [cats, setcats] = useState([])
+const AddForm = (props) => {
+  const { catSt, catsSt } = useContext(props.ctx);
+  const [cat, setcat] = catSt;
+  const [cats, setcats] = catsSt;
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/categories`)
-      .then(response => {
-        console.log(response.data)
-        setcats(response.data)
-      })
-  }, [])
+  // const [cat, setcat] = useState("")
+  // const [cats, setcats] = useState([])
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8000/api/categories`)
+  //     .then(response => {
+  //       console.log(response.data)
+  //       setcats(response.data)
+  //     })
+  // }, [])
 
   const titleref = useRef();
   const bodyref = useRef();
@@ -49,4 +53,4 @@ const Form = (props) => {
   );
 }
 
-export default Form
+export default AddForm
