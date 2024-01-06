@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 const UpdForm = (props) => {
   const { atcArySt, updidSt, artSt, showSt, catSt, catsSt } = useContext(props.ctx);
@@ -8,23 +8,35 @@ const UpdForm = (props) => {
   const [art, setArt] = artSt;
   const [cat, setcat] = catSt;
   const [cats, setcats] = catsSt;
-  //const [show, setShow] = showSt;
+  const [alsubmit, setalsubmit] = useState(false);
 
   //console.log("ccc" + cat)
 
   const handleInputChange = event => {
-    setcat(event.target.value)
+    //setcat(event.target.value)
     const { name, value } = event.target;
-    console.log(name + "---" + value)
+    //console.log(name + "---" + value)
     setArt(prevData => ({
       ...prevData,
       [name]: value,
     }));
+    setalsubmit(true)
+  };
+
+  const handleInputChangee = event => {
+    setcat(event.target.value)
+    const { name, value } = event.target;
+    //console.log(name + "---" + value)
+    setArt(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setalsubmit(true)
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(art)
+    //console.log(art)
     await
       axios
         .put(`http://localhost:8000/api/articles/${updid}`, { title: art.title, body: art.body, category_id: art.category_id })
@@ -75,13 +87,13 @@ const UpdForm = (props) => {
       <br /> */}
       <p>current category: {cat.name}</p>
       <label>Category:</label>
-      <select name="category_id" value={cat} onChange={handleInputChange} >
+      <select name="category_id" value={cat} onChange={handleInputChangee} >
         <option value="">Select a category</option>
         {cats.map(c => (
           <option key={c.id} value={c.id}>{c.name}</option>
         ))}
       </select><br />
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={!alsubmit}>Submit</button>
     </form>
   )
 }
