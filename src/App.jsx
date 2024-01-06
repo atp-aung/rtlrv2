@@ -64,22 +64,12 @@ function App() {
         //console.log("resp is ----" + JSON.stringify(response.data.detail))
         console.log(response.data)
         setAtcAry([...atcAry, response.data.newArtFacts])
-        //console.log(respDtl)
       })
       .catch(error => {
         // Handle error
         console.error('Error:', error);
       });
   }
-
-  // const addd = (title, body, category_id) => {
-  //   const postData = {
-  //     title: title,
-  //     body: body,
-  //     category_id: category_id
-  //   };
-  //   console.log("add succ")
-  // }
 
   return (
     <>
