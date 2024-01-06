@@ -72,6 +72,15 @@ function App() {
       });
   }
 
+  // const addd = (title, body, category_id) => {
+  //   const postData = {
+  //     title: title,
+  //     body: body,
+  //     category_id: category_id
+  //   };
+  //   console.log("add succ")
+  // }
+
   return (
     <>
       {show &&

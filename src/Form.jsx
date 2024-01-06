@@ -1,6 +1,19 @@
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
+import axios from "axios"
 
 const Form = (props) => {
+  const [cat, setcat] = useState("")
+  const [cats, setcats] = useState([])
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/categories`)
+      .then(response => {
+        console.log(response.data)
+        setcats(response.data)
+      })
+  }, [])
+
   const titleref = useRef();
   const bodyref = useRef();
   const cateref = useRef();
@@ -22,7 +35,14 @@ const Form = (props) => {
 
       Title: <input type="text" ref={titleref} /> <br />
       Body: <input type="text" ref={bodyref} /> <br />
-      Category id: <input type="text" ref={cateref} /> <br />
+      {/* Category id: <input type="text" ref={cateref} /> <br /> */}
+      <label>Category:</label>
+      <select value={cat} ref={cateref} onChange={(e) => setcat(e.target.value)} >
+        <option value="">Select a category</option>
+        {cats.map(c => (
+          <option key={c.id} value={c.id}>{c.name}</option>
+        ))}
+      </select>
       <button type="submit">Add</button>
     </form>
   );
