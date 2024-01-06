@@ -62,7 +62,6 @@ function App() {
     setUpdid(id)
     setArt({ title: title, body: body, category_id: category_id })
     setcat(category)
-    console.log(cat)
     //console.log(art)
   }
 
